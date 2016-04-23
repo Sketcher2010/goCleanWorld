@@ -17,6 +17,7 @@
 		<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
 		<script src="/js/jquery.min.js"></script>
 		<script src="/js/bootstrap.js"></script>
+		<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 		<script src="/js/main.js"></script>
 	</head>
 	<body>
@@ -26,15 +27,29 @@
 				<div class="modal-content">
 				    <div class="modal-header">
 				        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
-				        <h4 class="modal-title" id="myModalLabel">Регистрация</h4>
+				        <h4 class="modal-title" id="myModalLabel">Профиль пользователя <?=$user_login?></h4>
 				    </div>
 				    <div class="modal-body">
-				    	SomeInformationInProfile
+					    <div class="row">
+					    	<div class="col-xs-6">Почта</div>
+					    	<div class="col-xs-6"><?=$user_email;?></div>
+					    </div>
+					    <div class="row">
+					    	<div class="col-xs-6">Время регистрации</div>
+					    	<div class="col-xs-6"><?=new_time($user_regtime);?></div>
+					    </div>
+					    <div class="row">
+					    	<div class="col-xs-6">Создал GCW</div>
+					    	<div class="col-xs-6">0</div>
+					    </div>
+						<div class="row">
+					    	<div class="col-xs-6">Помог в GCW</div>
+					    	<div class="col-xs-6">0</div>
+					    </div>
 				    </div>
-				    <div class="modal-footer">
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-				        <button type="button" class="btn btn-info" onclick="users.showAuthForm();">Перейти в авторизацию</button>
-				    </div>
+				    <!--<div class="modal-footer">
+				    	asd
+				    </div>-->
 				</div>
 			</div>
 		</div>
@@ -103,24 +118,47 @@
 		<!-- Main -->
 		<div id="container">
 			<div class="header">
-				<div class=".col-lg-11">
+				<div class="col-lg-11">
 					<div class="logo">GoCleanWorld</div>
 				</div>
-				<div class=".col-lg-1">
+				<div class="col-lg-1">
 					<p class="userMiniProfile text-right">
 						<? if(isLogged()) {echo "<span data-toggle=\"modal\" data-target=\"#miniProfileModal\">Профиль</span>";} else {echo "<span data-toggle=\"modal\" data-target=\"#authModal\">Войти</span>";}?>
 					</p>
 				</div>
 				
-				
-				<div class="lastGCW">Тут будет последняя фотка грязи и кол-во людей, которые хотят это убрать</div>
+				<div class="lastGCW">
+					<div class="row">
+						<div class="col-lg-9">
+							<img src="https://s3-eu-west-1.amazonaws.com/toastedl/images/1/original/shutterstock_129381815_k.jpg" style="width: 100%">
+						</div>
+						<div class="col-lg-3" style="padding: 5px;">
+							<div id="map" class="lastMap"></div>
+							<p style="width: 272px; margin-top: 10px;">
+								<button type="button" class="btn btn-success btn-lg btn-block">Я ПОМОГУ!</button>
+							</p>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="main">
-
+				Можно запихать блог + статистику юзеров..
 			</div>
 			<div class="footer">
 				(c) by Sketcher2010 for BarsHackathon 2016
 			</div>
 		</div>
+		<script type="text/javascript">
+		
+ymaps.ready(init);
+var myMap;
+
+function init(){     
+ myMap = new ymaps.Map("map", {
+  center: [55.76, 37.64],
+   zoom: 7
+  });
+}
+		</script>
 	</body>
 </html>

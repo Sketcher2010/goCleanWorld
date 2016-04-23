@@ -11,6 +11,7 @@ body {
 .header {
 	height: 350px;
 	border-bottom: 1px solid #000;
+	overflow: hidden;
 }
 .logo {
 	padding: 20px;
@@ -25,12 +26,18 @@ body {
 .lastGCW {
 	padding-top: 20px;
 }
+.lastMap {
+	width: 272px;
+	height: 228px;
+	box-shadow: 0 0 3px #000
+}
 
 
 .main {
 	margin-top: 15px;
 	border-bottom: 1px solid #000;
 }
+
 
 .footer {
 	padding: 20px;
