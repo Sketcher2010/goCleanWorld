@@ -7,6 +7,8 @@
 	require($root.'/server/classes/db.php');
 	include($root.'/server/preloading.php');
 	include($root.'/server/functions.php');
+	require($root.'/server/classes/users.php');
+	require($root.'/server/classes/garbage.php');
 
 ?>
 <!DOCTYPE html>
@@ -114,7 +116,9 @@
 				</div>
 			</div>
 		</div>
-
+		<?
+			$mainGarbage = $garbage->get();
+		?>
 		<!-- Main -->
 		<div id="container">
 			<div class="header">
@@ -130,12 +134,15 @@
 				<div class="lastGCW">
 					<div class="row">
 						<div class="col-lg-9">
-							<img src="https://s3-eu-west-1.amazonaws.com/toastedl/images/1/original/shutterstock_129381815_k.jpg" style="width: 100%">
+						<div class="img_description">
+							<?=$mainGarbage["title"]?>
+						</div>
+							<img src="<?=$mainGarbage["image"]?>" style="width: 100%">
 						</div>
 						<div class="col-lg-3" style="padding: 5px;">
 							<div id="map" class="lastMap"></div>
 							<p style="width: 272px; margin-top: 10px;">
-								<button type="button" class="btn btn-success btn-lg btn-block">Я ПОМОГУ!</button>
+								<button type="button" class="btn btn-success btn-lg btn-block" onclick="garbage.visit(<?=$mainGarbage["id"]?>);">Я ПОМОГУ!<sup> 0</sup></button>
 							</p>
 						</div>
 					</div>
@@ -149,16 +156,15 @@
 			</div>
 		</div>
 		<script type="text/javascript">
-		
-ymaps.ready(init);
-var myMap;
+			ymaps.ready(init);
+			var myMap;
 
-function init(){     
- myMap = new ymaps.Map("map", {
-  center: [55.76, 37.64],
-   zoom: 7
-  });
-}
+			function init(){     
+			 myMap = new ymaps.Map("map", {
+			  center: [<?=$mainGarbage["coord_x"]?>, <?=$mainGarbage["coord_y"]?>],
+			   zoom: 7
+			  });
+			}
 		</script>
 	</body>
 </html>

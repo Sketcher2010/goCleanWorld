@@ -78,7 +78,7 @@ class users {
 
     $error = array('response' => 1);
    } else {
-    $error = array('error_msg' => 'Ошибка соединения с сервером. Попробуйте позже.'.$db->error());
+    $error = array('error_msg' => 'Ошибка соединения с сервером. Попробуйте позже.');
    }
   }
 
