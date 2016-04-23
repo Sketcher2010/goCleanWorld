@@ -1,0 +1,37 @@
+* {margin: 0px; padding: 0px;}
+
+body {
+	font-family: tahoma;
+}
+
+#container {
+	width: 1200px;
+	margin: auto;
+}
+.header {
+	height: 350px;
+	border-bottom: 1px solid #000;
+}
+.logo {
+	padding: 20px;
+	font-size: 30px;
+	font-weight: bold;
+	position: absolute;
+}
+.userMiniProfile {
+	padding: 15px;
+	cursor: pointer;
+}
+.lastGCW {
+	padding-top: 20px;
+}
+
+
+.main {
+	margin-top: 15px;
+	border-bottom: 1px solid #000;
+}
+
+.footer {
+	padding: 20px;
+}
