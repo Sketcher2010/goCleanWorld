@@ -13,5 +13,6 @@ RewriteEngine on
 RewriteRule ^users\/?$ server/modules/users/index.php [L,QSA]
 RewriteRule ^users\/(.*?)/?$ server/modules/users/$1.php [L,QSA]
 
-# О сайте
-RewriteRule ^about\/?$ modules/site/about.php [L,QSA]
+# Мусор (ивенты)
+RewriteRule ^event\/?$ server/modules/garbage/index.php [L,QSA]
+RewriteRule ^event\/(.*?)/?$ server/modules/garbage/$1.php [L,QSA]

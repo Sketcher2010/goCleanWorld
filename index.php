@@ -24,6 +24,22 @@
 	</head>
 	<body>
 		<!-- Modals -->
+		<div class="modal fade" id="preview" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				    <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="previewTitle"></h4>
+				    </div>
+				    <div class="modal-body" id="previewText">
+					    
+				    </div>
+				    <!--<div class="modal-footer">
+				    	asd
+				    </div>-->
+				</div>
+			</div>
+		</div>
 		<div class="modal fade" id="miniProfileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -133,16 +149,16 @@
 				
 				<div class="lastGCW">
 					<div class="row">
-						<div class="col-lg-9">
-						<div class="img_description">
-							<?=$mainGarbage["title"]?>
-						</div>
+						<div class="col-lg-9" onclick="garbage.preview(<?=$mainGarbage["id"]?>);">
+							<div class="img_description">
+								<?=$mainGarbage["title"]?>
+							</div>
 							<img src="<?=$mainGarbage["image"]?>" style="width: 100%">
 						</div>
 						<div class="col-lg-3" style="padding: 5px;">
 							<div id="map" class="lastMap"></div>
 							<p style="width: 272px; margin-top: 10px;">
-								<button type="button" class="btn btn-success btn-lg btn-block" onclick="garbage.visit(<?=$mainGarbage["id"]?>);">Я ПОМОГУ!<sup> 0</sup></button>
+								<button type="button" class="btn btn-success btn-lg btn-block" onclick="garbage.preview(<?=$mainGarbage["id"]?>);">Я ПОМОГУ!<sup> <?=$garbage->countVisitors($mainGarbage["id"])?></sup></button>
 							</p>
 						</div>
 					</div>

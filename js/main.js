@@ -1,3 +1,10 @@
+var garbage = {
+	preview: function(id) {
+		$("#previewTitle").html("Название");
+		$("#previewText").html("описание");
+		$("#preview").modal("show");
+	}
+}
 var users = {
 	showAuthForm: function() {
 			$("#regModal").modal('hide');

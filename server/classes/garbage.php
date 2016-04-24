@@ -32,13 +32,14 @@ class garbage {
 	   	} else {
 	    	$error = array('error_msg' => 'Ошибка соединения с сервером. Попробуйте позже.');
 	   	}
+	   	return json_encode($error);
 	}
 	public function get($id = null) {
 		global $db;
 		if ($id == null)
-			return $db->assoc($db->query("SELECT * FROM `garbage`"));
+			return json_encode($db->assoc($db->query("SELECT * FROM `garbage`")));
 		else
-			return $db->assoc($db->query("SELECT * FROM `garbage` WHERE `id` = '$id'"));
+			return json_encode($db->assoc($db->query("SELECT * FROM `garbage` WHERE `id` = '$id'")));
 	}
 	public function visit() {
 		global $db, $users, $user_id;
@@ -57,6 +58,13 @@ class garbage {
 	   	} else {
 	    	$error = array('error_msg' => 'Ошибка соединения с сервером. Попробуйте позже.');
 	   	}
+	   	return json_encode($error);
+	}
+
+	public function countVisitors($id = null) {
+		global $db;
+
+		return $db->fetch($db->query("SELECT COUNT(*) FROM `visits` WHERE `gid` = '$id'"))[0];
 	}
 }
 
