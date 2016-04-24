@@ -6,5 +6,9 @@ include($root.'/server/preloading.php');
 include($root.'/server/functions.php');
 require($root.'/server/classes/garbage.php');
 
-echo $garbage->get();
+if($_GET["id"] > 0) {
+	echo json_encode($garbage->get((int)$_GET["id"]));
+} else {
+	echo json_encode($garbage->get());
+}
 ?>

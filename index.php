@@ -9,6 +9,7 @@
 	include($root.'/server/functions.php');
 	require($root.'/server/classes/users.php');
 	require($root.'/server/classes/garbage.php');
+	$mainGarbageId = 20;
 
 ?>
 <!DOCTYPE html>
@@ -34,9 +35,50 @@
 				    <div class="modal-body" id="previewText">
 					    
 				    </div>
-				    <!--<div class="modal-footer">
-				    	asd
-				    </div>-->
+				    <div class="modal-footer" id="previewFooter"></div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="addNewEvent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				    <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel">Профиль пользователя <?=$user_login?></h4>
+				    </div>
+				    <div class="modal-body">
+					    <form enctype="multipart/form-data" method="post" action="/event/add/">
+						  <div class="form-group">
+						    <label for="title">Заголовок</label>
+						    <input type="text" class="form-control" name="title" id="title" placeholder="Заголовок">
+						  </div>
+						  <div class="form-group">
+						    <label for="city">Город</label>
+						    <input type="text" class="form-control" name="city" id="city" placeholder="Город">
+						  </div>
+						  <div class="form-group">
+						    <label for="street">Улица</label>
+						    <input type="text" class="form-control" name="street" id="street" placeholder="Улица">
+						  </div>
+						  <div class="form-group">
+						    <label for="house">Дом</label>
+						    <input type="text" class="form-control" name="house" id="house" placeholder="Дом">
+						  </div>
+						  <div class="form-group">
+						    <label for="photo">Загрузите фотографию</label>
+						    <input type="file" id="photo" name="photo">
+						    <p class="help-block">Если Вы хотите, чтобы Ваше событие попало в шапку загружайте широкоформатные фотографии</p>
+						  </div>
+						  <div class="form-group">
+						  	<label for="description">Описание</label>
+						  	<textarea class="form-control" id="description" name="description" rows="3" placeholder="Короткое описание"></textarea>
+						  </div>
+						  <button type="submit" class="btn btn-default">Создать событие</button>
+						</form>
+				    </div>
+				    <div class="modal-footer">
+				    	
+				    </div>
 				</div>
 			</div>
 		</div>
@@ -65,9 +107,9 @@
 					    	<div class="col-xs-6">0</div>
 					    </div>
 				    </div>
-				    <!--<div class="modal-footer">
-				    	asd
-				    </div>-->
+				    <div class="modal-footer">
+				    	
+				    </div>
 				</div>
 			</div>
 		</div>
@@ -133,17 +175,17 @@
 			</div>
 		</div>
 		<?
-			$mainGarbage = $garbage->get();
+			$mainGarbage = $garbage->get($mainGarbageId);
 		?>
 		<!-- Main -->
 		<div id="container">
 			<div class="header">
-				<div class="col-lg-11">
+				<div class="col-lg-9">
 					<div class="logo">GoCleanWorld</div>
 				</div>
-				<div class="col-lg-1">
+				<div class="col-lg-3">
 					<p class="userMiniProfile text-right">
-						<? if(isLogged()) {echo "<span data-toggle=\"modal\" data-target=\"#miniProfileModal\">Профиль</span>";} else {echo "<span data-toggle=\"modal\" data-target=\"#authModal\">Войти</span>";}?>
+						<? if(isLogged()) {echo "<div class=\"btn btn-primary btn-sm\" data-toggle=\"modal\" data-target=\"#addNewEvent\">Добавить новое событие</div><span class=\"btn btn-sm btn-info\" style=\"float: right;\" data-toggle=\"modal\" data-target=\"#miniProfileModal\">Профиль</span>";} else {echo "<span data-toggle=\"modal\" data-target=\"#authModal\">Войти</span>";}?>
 					</p>
 				</div>
 				
@@ -151,9 +193,9 @@
 					<div class="row">
 						<div class="col-lg-9" onclick="garbage.preview(<?=$mainGarbage["id"]?>);">
 							<div class="img_description">
-								<?=$mainGarbage["title"]?>
+								<?=$mainGarbage["maintitle"]?>
 							</div>
-							<img src="<?=$mainGarbage["image"]?>" style="width: 100%">
+							<img src="<?=$mainGarbage["image"]?>" alt="<?=$mainGarbage["maintitle"]?>" style="width: 100%">
 						</div>
 						<div class="col-lg-3" style="padding: 5px;">
 							<div id="map" class="lastMap"></div>
@@ -165,7 +207,14 @@
 				</div>
 			</div>
 			<div class="main">
-				Можно запихать блог + статистику юзеров..
+				<div class="row">
+					<?
+						$quer = $db->query("SELECT `id`, `image`, `maintitle` FROM `garbage` WHERE `active` = 1 LIMIT 0, 9");
+						while($el = $db->assoc($quer)) {
+							echo '<div class="col-lg-4" style="max-height: 210px; overflow: hidden;" onclick="garbage.preview('.$el["id"].')"><div class="countVisitorsMini">'.$garbage->countVisitors($el["id"]).'</div><div class="maintitleOver">'.$el["maintitle"].'</div><img style="width: 100%;" src="'.$el["image"].'"></div>';
+						}
+					?>
+				</div>
 			</div>
 			<div class="footer">
 				(c) by Sketcher2010 for BarsHackathon 2016

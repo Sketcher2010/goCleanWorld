@@ -7,5 +7,5 @@ include($root.'/server/functions.php');
 require($root.'/server/classes/users.php');
 require($root.'/server/classes/garbage.php');
 
-echo $garbage->add();
+$garbage->add();
 ?>

@@ -1,10 +1,31 @@
 var garbage = {
 	preview: function(id) {
-		$("#previewTitle").html("Название");
-		$("#previewText").html("описание");
-		$("#preview").modal("show");
+		$.get("/event/get?id="+id, function(data) {
+			data = JSON.parse(data);
+			$("#previewTitle").html(data.maintitle);
+			$("#previewText").html('<p class="bg-danger" id="errors" style="padding: 10px; display: none;"></p><div class="row">\
+					    	<div class="col-xs-6">Где?</div>\
+					    	<div class="col-xs-6">г. '+data.city+', ул '+data.street+', дом '+data.house+'</div>\
+					    </div><div class="row">\
+					    	<div class="col-xs-6">Когда?</div>\
+					    	<div class="col-xs-6">'+data.cleaningtime+'</div>\
+					    </div>');
+			$("#previewFooter").html('<button type="button" class="btn btn-success btn-lg btn-block" onclick="garbage.visit('+id+');">Я ПОМОГУ!</button>');
+			$("#preview").modal("show");
+		});
+	},
+	visit: function(id){
+		$.post("/event/visit", {gid: id}, function(data) {
+			var result = $.parseJSON(data);
+    var error_msg = result.error_msg;
+    if(result.response) {
+    	window.location.href = "/"
+    } else if(error_msg) {
+     $('#errors').show().html(error_msg);
+    }
+		});
 	}
-}
+};
 var users = {
 	showAuthForm: function() {
 			$("#regModal").modal('hide');
@@ -78,7 +99,6 @@ var users = {
    email: email.val(),
   }, function(data) {
    var result = $.parseJSON(data);
-   alert(result.error_msg);
    var error_msg = result.error_msg;
 
    if(result.response) {

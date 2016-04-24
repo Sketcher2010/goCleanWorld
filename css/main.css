@@ -9,8 +9,7 @@ body {
 	margin: auto;
 }
 .header {
-	height: 350px;
-	border-bottom: 1px solid #000;
+	height: 370px;
 	overflow: hidden;
 }
 .logo {
@@ -39,11 +38,26 @@ body {
 	color: #ffffff;
 	font-size: 30px;
 }
+.maintitleOver {
+	position: absolute;
+	bottom: 0px;
+	padding: 5px;
+	background: rgba(0, 0, 0, 0.6);
+	color: #ffffff;
+}
+.countVisitorsMini {
+	position: absolute;
+	top: 0px;
+	right: 15px;
+	padding: 5px;
+	background: rgba(0, 0, 0, 0.6);
+	border-radius: 3px;
+	color: #ffffff;
+}
 
 
 .main {
 	margin-top: 15px;
-	border-bottom: 1px solid #000;
 }
 
 

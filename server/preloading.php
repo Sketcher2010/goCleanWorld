@@ -19,12 +19,6 @@ $user_info = $db->query("
  SELECT * FROM `users` WHERE `id` = '$user_id'");
 
 $user_data = $db->assoc($user_info);
-
-if(count($user_data)) {
- foreach($user_data as $key => $value) {
-  ${'user_'.$key} = $value;
- }
-
 function isLogged() {
   global $user_hash, $auth_hash;
 
@@ -35,6 +29,10 @@ function isLogged() {
     return false;
   }
 }
+if(count($user_data)) {
+ foreach($user_data as $key => $value) {
+  ${'user_'.$key} = $value;
+ }
  // помечаем аккаунт в Online
  if(isLogged() && $user_lasttime < $user_online_limit) {
   $db->update('users', array('lasttime' => $time), array('id' => $user_id));
